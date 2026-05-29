@@ -68,9 +68,13 @@ func _draw() -> void:
 	draw_texture_rect(texture, new_preview_rect, false)
 
 	var scaled_rect := region
-	scaled_rect.position *= new_scale
-	scaled_rect.size *= new_scale
-	scaled_rect.position += new_preview_rect.position
+	if scaled_rect == Rect2():
+		# If the rect's value i 0, we draw the rect around the whole texture like the region editor.
+		scaled_rect = new_preview_rect
+	else:
+		scaled_rect.position *= new_scale
+		scaled_rect.size *= new_scale
+		scaled_rect.position += new_preview_rect.position
 	draw_rect(scaled_rect, Color.WHITE, false)
 
 	# NinePatch
